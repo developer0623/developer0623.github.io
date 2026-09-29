@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lionel Jing</title>
+<meta name="description" content="Lionel Jing — full-stack software engineer building web, mobile, desktop, and blockchain applications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow reading column; career rendered as a chain of dated "blocks", work as a filterable ledger of cards */
+:root {
+  --bg: #F4F5F3;
+  --surface: #FFFFFF;
+  --fg: #14191D;
+  --muted: #5A646D;
+  --line: #DADFE1;
+  --accent: #0B6A94;
+  --accent-soft: #E1EEF4;
+  --font-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 10px;
+  --maxw: 1040px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1215; --surface: #151B20; --fg: #E6EBEE; --muted: #96A2AC;
+    --line: #26303A; --accent: #62B8E0; --accent-soft: #15303E; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1215; --surface: #151B20; --fg: #E6EBEE; --muted: #96A2AC;
+  --line: #26303A; --accent: #62B8E0; --accent-soft: #15303E; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 480px) { .wrap { padding-inline: 16px; } }
+.mono { font-family: var(--font-mono); }
+
+/* Nav */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+.brand { font-family: var(--font-mono); font-size: 14px; color: var(--fg); font-weight: 500; }
+.brand span { color: var(--accent); }
+.nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 14px; }
+.nav ul a { color: var(--muted); }
+.nav ul a:hover { color: var(--fg); text-decoration: none; }
+@media (max-width: 640px) { .nav ul li.opt { display: none; } .nav ul { gap: 16px; } }
+
+/* Hero */
+.hero { padding-block: 72px 56px; border-bottom: 1px solid var(--line); }
+.eyebrow { font-family: var(--font-mono); font-size: 13px; color: var(--muted); letter-spacing: .04em; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.eyebrow .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2E9E6A; margin-right: 8px; vertical-align: 1px; }
+.hero h1 {
+  font-family: var(--font-display); font-weight: 800; letter-spacing: -.035em;
+  font-size: clamp(44px, 8vw, 88px); line-height: .98; margin: 22px 0 18px; text-wrap: balance;
+}
+.hero .role { font-size: clamp(20px, 2.6vw, 26px); font-weight: 500; margin: 0 0 18px; color: var(--fg); text-wrap: balance; }
+.hero .role em { font-style: normal; color: var(--accent); }
+.hero p.lede { max-width: 62ch; color: var(--muted); font-size: 17px; margin: 0 0 30px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; font: 500 15px var(--font-body);
+  padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--fg); cursor: pointer;
+}
+.btn:hover { border-color: var(--fg); text-decoration: none; }
+.btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn.primary:hover { opacity: .88; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 48px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.fact { padding: 18px 20px; border-left: 1px solid var(--line); min-width: 0; }
+.fact:first-child { border-left: 0; }
+.fact b { display: block; font-size: 26px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.fact span { font-size: 13px; color: var(--muted); }
+@media (max-width: 720px) {
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fact:nth-child(3) { border-left: 0; }
+  .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* Sections */
+section.block { padding-block: 72px; border-bottom: 1px solid var(--line); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+.sec-head h2 { font-family: var(--font-display); font-size: clamp(28px, 4vw, 38px); letter-spacing: -.025em; line-height: 1.1; margin: 0; }
+.sec-head .label { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 10px; }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: 500 13px var(--font-body); padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer;
+}
+.chip:hover { color: var(--fg); border-color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+/* Work grid */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 760px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); transform: translateY(-2px); }
+.card.feature, .card.span { grid-column: 1 / -1; }
+.card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.card .org { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.card .kind { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+.card h3 { font-size: 23px; letter-spacing: -.02em; line-height: 1.2; margin: 0; }
+.card p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.card ul.points { margin: 0; padding-left: 18px; color: var(--muted); font-size: 15px; display: grid; gap: 4px; }
+.card ul.points strong { color: var(--fg); font-weight: 600; }
+.metric { display: flex; align-items: baseline; gap: 12px; padding: 14px 16px; border-radius: 8px; background: var(--accent-soft); }
+.metric b { font-size: 30px; font-weight: 800; color: var(--accent); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.metric span { font-size: 14px; color: var(--fg); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.tags li { font-family: var(--font-mono); font-size: 12px; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); }
+.links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: auto; padding-top: 4px; font-size: 14px; font-weight: 500; }
+.links a::after { content: " ↗"; font-size: 12px; }
+.feature-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; }
+@media (max-width: 760px) { .feature-body { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
+
+/* Chain timeline */
+.chain { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.link-row { display: grid; grid-template-columns: 170px 28px minmax(0, 1fr); gap: 0 18px; }
+@media (max-width: 640px) { .link-row { grid-template-columns: 22px minmax(0, 1fr); } .link-row .when { grid-column: 2; grid-row: 1; } .link-row .rail { grid-row: 1 / span 2; grid-column: 1; } .link-row .what { grid-column: 2; } }
+.when { font-family: var(--font-mono); font-size: 13px; color: var(--muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.when .h { display: block; color: var(--accent); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.rail { position: relative; display: flex; justify-content: center; }
+.rail::before { content: ""; position: absolute; top: 0; bottom: 0; width: 2px; background: var(--line); }
+.link-row:first-child .rail::before { top: 10px; }
+.link-row:last-child .rail::before { bottom: auto; height: 12px; }
+.rail i { position: relative; margin-top: 7px; width: 14px; height: 14px; border-radius: 3px; background: var(--surface); border: 2px solid var(--accent); }
+.link-row:first-child .rail i { background: var(--accent); }
+.what { padding-bottom: 40px; min-width: 0; }
+.what h3 { margin: 0; font-size: 21px; letter-spacing: -.015em; line-height: 1.3; }
+.what h3 span { font-weight: 500; color: var(--muted); }
+.what ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); font-size: 15.5px; display: grid; gap: 5px; max-width: 70ch; }
+.what .sub { margin-top: 10px; font-size: 14px; color: var(--muted); }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 860px) { .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .skills { grid-template-columns: minmax(0, 1fr); } }
+.skill { border-top: 2px solid var(--fg); padding-top: 14px; min-width: 0; }
+.skill h3 { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; font-weight: 500; margin: 0 0 12px; color: var(--muted); }
+
+/* Education */
+.edu { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.edu h3 { margin: 0 0 4px; font-size: 20px; letter-spacing: -.01em; }
+.edu p { margin: 0; color: var(--muted); }
+
+/* Contact */
+.contact { padding-block: 88px 64px; }
+.contact h2 { font-family: var(--font-display); font-weight: 800; letter-spacing: -.035em; font-size: clamp(36px, 6vw, 64px); line-height: 1.02; margin: 0 0 20px; max-width: 16ch; text-wrap: balance; }
+.contact p { color: var(--muted); max-width: 56ch; margin: 0 0 28px; font-size: 17px; }
+.email-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.email { font-family: var(--font-mono); font-size: clamp(15px, 2.4vw, 19px); padding: 11px 16px; border: 1px dashed var(--line); border-radius: 8px; user-select: all; overflow-wrap: anywhere; color: var(--fg); }
+footer { border-top: 1px solid var(--line); padding-block: 22px 32px; font-size: 13px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="wrap">
+    <a class="brand" href="#top">lionel<span>.</span>jing</a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li class="opt"><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span><i class="dot" aria-hidden="true"></i>Open to new roles</span>
+        <span>Abbotsford, BC, Canada</span>
+      </div>
+      <h1>Lionel Jing</h1>
+      <p class="role">Full-stack software engineer for <em>web</em>, <em>mobile</em>, <em>desktop</em> &amp; <em>blockchain</em>.</p>
+      <p class="lede">10+ years building and maintaining production software: factory-floor management platforms, Tezos wallets and block explorers, finance portals, and cross-platform mobile apps. I modernize legacy front ends, build scalable UIs and APIs, and work well with cross-functional teams.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="https://github.com/developer0623" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </div>
+
+      <div class="facts" role="list">
+        <div class="fact" role="listitem"><b>10+</b><span>years in production software</span></div>
+        <div class="fact" role="listitem"><b>30%</b><span>faster after an Angular 16 migration</span></div>
+        <div class="fact" role="listitem"><b>3</b><span>Tezos products at Cryptonomic</span></div>
+        <div class="fact" role="listitem"><b>iOS + Android</b><span>from one React Native codebase</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- WORK -->
+  <section class="block" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label">Selected work</span>
+          <h2 id="work-h">Projects I've worked on</h2>
+        </div>
+        <div class="filters" role="group" aria-label="Filter projects">
+          <button class="chip" id="f-all" data-f="all" aria-pressed="true">All</button>
+          <button class="chip" id="f-web" data-f="web" aria-pressed="false">Web</button>
+          <button class="chip" id="f-blockchain" data-f="blockchain" aria-pressed="false">Blockchain</button>
+          <button class="chip" id="f-mobile" data-f="mobile" aria-pressed="false">Mobile &amp; Desktop</button>
+        </div>
+      </div>
+
+      <div class="grid" id="grid">
+
+        <article class="card feature" data-tags="web">
+          <div class="card-top">
+            <span class="org">AMS Controls Inc. · 2020–2025</span>
+            <span class="kind">Industrial web platform</span>
+          </div>
+          <h3>Eclipse Pro</h3>
+          <div class="feature-body">
+            <div style="display:grid;gap:14px;min-width:0">
+              <p>AMS Controls' browser-based production-management platform for roll-forming and metal-fabrication plants. It connects the office to the factory floor with order scheduling, live machine monitoring, inventory tracking, and OEE reporting.</p>
+              <ul class="points">
+                <li>Built responsive user interfaces with <strong>React/Redux</strong> and <strong>Angular</strong>.</li>
+                <li>Migrated a legacy <strong>AngularJS</strong> application to <strong>Angular 16</strong>, reworking front-end rendering and architecture.</li>
+                <li>Integrated data-visualization, data-grid, and UI component libraries to speed up delivery.</li>
+              </ul>
+            </div>
+            <div style="display:grid;gap:14px;align-content:start;min-width:0">
+              <div class="metric"><b>30%</b><span>application performance gain from the Angular 16 migration</span></div>
+              <ul class="tags"><li>Angular 16</li><li>AngularJS</li><li>React</li><li>Redux</li><li>RxJS</li><li>TypeScript</li></ul>
+              <div class="links">
+                <a href="https://www.amscontrols.com/product/eclipse/" target="_blank" rel="noopener">Eclipse product page</a>
+                <a href="https://www.amscontrols.com/" target="_blank" rel="noopener">amscontrols.com</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" data-tags="blockchain mobile">
+          <div class="card-top">
+            <span class="org">Cryptonomic Inc. · 2018–2020</span>
+            <span class="kind">Desktop wallet</span>
+          </div>
+          <h3>Galleon</h3>
+          <p>A desktop software wallet for the Tezos blockchain, built with Electron and React. It supports transactions, delegation, and Ledger hardware-wallet integration.</p>
+          <ul class="tags"><li>Electron</li><li>React</li><li>Tezos</li><li>Ledger</li></ul>
+          <div class="links">
+            <a href="https://cryptonomic.tech/work/galleon.html" target="_blank" rel="noopener">Case study</a>
+            <a href="https://github.com/Cryptonomic/Galleon" target="_blank" rel="noopener">Source</a>
+          </div>
+        </article>
+
+        <article class="card" data-tags="blockchain web">
+          <div class="card-top">
+            <span class="org">Cryptonomic Inc. · 2018–2020</span>
+            <span class="kind">Block explorer</span>
+          </div>
+          <h3>Arronax</h3>
+          <p>A Tezos block explorer built for free-form analysis of blockchain data, powered by the Conseil indexer. I developed front-end features for it.</p>
+          <ul class="tags"><li>React</li><li>ConseilJS</li><li>Tezos</li></ul>
+          <div class="links">
+            <a href="https://arronax.io/" target="_blank" rel="noopener">arronax.io</a>
+            <a href="https://github.com/cryptonomic/arronax" target="_blank" rel="noopener">Source</a>
+            <a href="https://cryptonomic.tech/work/arronax.html" target="_blank" rel="noopener">Case study</a>
+          </div>
+        </article>
+
+        <article class="card" data-tags="blockchain web">
+          <div class="card-top">
+            <span class="org">Cryptonomic Inc. · 2018–2020</span>
+            <span class="kind">Block explorer</span>
+          </div>
+          <h3>Mininax</h3>
+          <p>A retro-style Tezos block explorer inspired by Minitel and built with ReasonML. I added internationalization (i18n) support.</p>
+          <ul class="tags"><li>ReasonML</li><li>i18n</li><li>Tezos</li></ul>
+          <div class="links">
+            <a href="https://mininax.io/" target="_blank" rel="noopener">mininax.io</a>
+            <a href="https://github.com/cryptonomic/mininax" target="_blank" rel="noopener">Source</a>
+            <a href="https://cryptonomic.tech/work/mininax.html" target="_blank" rel="noopener">Case study</a>
+          </div>
+        </article>
+
+        <article class="card" data-tags="web">
+          <div class="card-top">
+            <span class="org">Chris Sutherland · 2016–2018</span>
+            <span class="kind">Finance portal</span>
+          </div>
+          <h3>Toyota Finance Hardship Portal</h3>
+          <p>An online application portal, powered by verifier.me, where Toyota Finance customers apply for financial-hardship assistance.</p>
+          <ul class="tags"><li>Responsive UI</li><li>Forms</li><li>verifier.me</li></ul>
+          <div class="links">
+            <a href="https://toyotafinance-hardship.verifier.me/" target="_blank" rel="noopener">Live portal</a>
+          </div>
+        </article>
+
+        <article class="card" data-tags="mobile">
+          <div class="card-top">
+            <span class="org">Chris Sutherland · 2016–2018</span>
+            <span class="kind">Mobile app</span>
+          </div>
+          <h3>InitialView</h3>
+          <p>An iOS and Android app, built with React Native, that international students use to complete university admissions interviews.</p>
+          <ul class="tags"><li>React Native</li><li>iOS</li><li>Android</li></ul>
+          <div class="links">
+            <a href="https://apps.apple.com/us/app/initialview/id1129655421" target="_blank" rel="noopener">App Store</a>
+            <a href="https://play.google.com/store/apps/details?id=www.initialview.interviews" target="_blank" rel="noopener">Google Play</a>
+          </div>
+        </article>
+
+        <article class="card" data-tags="blockchain">
+          <div class="card-top">
+            <span class="org">Cryptonomic Inc. · 2018–2020</span>
+            <span class="kind">Infrastructure</span>
+          </div>
+          <h3>Conseil, ConseilJS &amp; Nautilus Cloud</h3>
+          <p>Tezos infrastructure I worked with at Cryptonomic: the Conseil indexer, the ConseilJS SDK, and the Nautilus Cloud service behind the company's wallet and explorer products.</p>
+          <ul class="tags"><li>Tezos</li><li>SDK</li><li>Indexing</li></ul>
+          <div class="links">
+            <a href="https://cryptonomic.tech/work/conseilAndConseilJS.html" target="_blank" rel="noopener">Conseil &amp; ConseilJS</a>
+            <a href="https://cryptonomic.tech/work/nautilusCloud.html" target="_blank" rel="noopener">Nautilus Cloud</a>
+          </div>
+        </article>
+
+        <article class="card" data-tags="web">
+          <div class="card-top">
+            <span class="org">iptvplayer · 2013–2016</span>
+            <span class="kind">Streaming</span>
+          </div>
+          <h3>IPTV Streaming Player</h3>
+          <p>Web-based IPTV applications for browsing and playing live and on-demand video, with an integrated player built on the YouTube IFrame Player API.</p>
+          <ul class="tags"><li>JavaScript</li><li>YouTube IFrame API</li><li>Video</li></ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="block" id="experience" aria-labelledby="exp-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label">Experience</span>
+          <h2 id="exp-h">Where I've worked</h2>
+        </div>
+      </div>
+
+      <ol class="chain">
+        <li class="link-row">
+          <div class="when"><span class="h">Latest</span>Oct 2020 – Dec 2025</div>
+          <div class="rail" aria-hidden="true"><i></i></div>
+          <div class="what">
+            <h3>Senior Software Engineer <span>· AMS Controls Inc.</span></h3>
+            <ul>
+              <li>Developed and maintained web applications for a provider of machine-control and production-management software for the roll-forming and metal-fabrication industry.</li>
+              <li>Contributed to Eclipse Pro, building responsive user interfaces with React/Redux and Angular.</li>
+              <li>Improved application performance by 30% by migrating a legacy AngularJS application to Angular 16 and optimizing front-end rendering and architecture.</li>
+              <li>Integrated third-party libraries for data visualization, data grids, and UI components.</li>
+              <li>Took part in code reviews, debugging, technical discussions, and knowledge sharing.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="link-row">
+          <div class="when">Mar 2018 – Sep 2020</div>
+          <div class="rail" aria-hidden="true"><i></i></div>
+          <div class="what">
+            <h3>Senior Software Engineer <span>· Cryptonomic Inc.</span></h3>
+            <ul>
+              <li>Developed Galleon, a desktop Tezos wallet built with Electron and React, with transactions, delegation, and Ledger support.</li>
+              <li>Developed front-end features for Arronax, a Tezos block explorer for free-form data analysis.</li>
+              <li>Added i18n support to Mininax, a Minitel-inspired Tezos block explorer built with ReasonML.</li>
+              <li>Worked across front-end, desktop, and blockchain layers on wallet features, chain-data analysis, and Tezos infrastructure.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="link-row">
+          <div class="when">Apr 2016 – Feb 2018</div>
+          <div class="rail" aria-hidden="true"><i></i></div>
+          <div class="what">
+            <h3>Software Engineer <span>· Chris Sutherland</span></h3>
+            <ul>
+              <li>Developed the Toyota Finance hardship application portal, powered by verifier.me.</li>
+              <li>Built the InitialView iOS and Android app with React Native.</li>
+              <li>Developed responsive user interfaces and integrated features across web and mobile platforms.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="link-row">
+          <div class="when">Jan 2013 – Mar 2016</div>
+          <div class="rail" aria-hidden="true"><i></i></div>
+          <div class="what">
+            <h3>Software Engineer <span>· iptvplayer</span></h3>
+            <ul>
+              <li>Developed web-based IPTV streaming applications for live and on-demand video.</li>
+              <li>Built and integrated a video player using the YouTube IFrame Player API.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="block" id="skills" aria-labelledby="skills-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label">Toolkit</span>
+          <h2 id="skills-h">Technical skills</h2>
+        </div>
+      </div>
+      <div class="skills">
+        <div class="skill"><h3>Languages</h3><ul class="tags"><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>PHP</li><li>C#</li><li>Solidity</li></ul></div>
+        <div class="skill"><h3>Front-end</h3><ul class="tags"><li>React</li><li>Redux</li><li>Redux Saga</li><li>Redux Thunk</li><li>Next.js</li><li>Gatsby</li><li>Angular</li><li>NgRx</li><li>RxJS</li><li>AngularJS</li><li>Vue.js</li><li>Vuex</li></ul></div>
+        <div class="skill"><h3>Mobile &amp; desktop</h3><ul class="tags"><li>React Native</li><li>Ionic</li><li>Electron</li></ul></div>
+        <div class="skill"><h3>Back-end</h3><ul class="tags"><li>Node.js</li><li>Express.js</li><li>NestJS</li><li>GraphQL</li><li>Laravel</li><li>Ruby on Rails</li><li>.NET</li><li>Firebase</li></ul></div>
+        <div class="skill"><h3>Blockchain</h3><ul class="tags"><li>Smart Contracts</li><li>Truffle</li><li>NFTs</li><li>Solana</li><li>Tezos</li></ul></div>
+        <div class="skill"><h3>Data, testing &amp; tools</h3><ul class="tags"><li>PostgreSQL</li><li>MySQL</li><li>MongoDB</li><li>Firestore</li><li>Jest</li><li>Enzyme</li><li>Mocha</li><li>Jasmine</li><li>Karma</li><li>Git</li><li>Jira</li></ul></div>
+      </div>
+
+      <div style="margin-top:48px">
+        <div class="edu">
+          <div>
+            <h3>Bachelor of Engineering, Computer Software Engineering</h3>
+            <p>The Open University of Hong Kong (now Hong Kong Metropolitan University)</p>
+          </div>
+          <p class="mono" style="font-size:13px">Apr 2007 – Sep 2012</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <h2 id="contact-h">Let's build something that ships.</h2>
+      <p>I'm open to full-time and contract roles in full-stack, front-end, and blockchain engineering. Email is the fastest way to reach me.</p>
+      <div class="email-row">
+        <span class="email" id="email">developer0623@gmail.com</span>
+        <button class="btn primary" id="copy" type="button">Copy email</button>
+        <a class="btn" href="mailto:developer0623@gmail.com">Open mail app</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Lionel Jing</span>
+    <span class="mono">Abbotsford, BC · <a href="https://github.com/developer0623" target="_blank" rel="noopener">github.com/developer0623</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function () {
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('#grid .card');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.getAttribute('data-f');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+      cards.forEach(function (card) {
+        var tags = card.getAttribute('data-tags').split(' ');
+        card.hidden = !(f === 'all' || tags.indexOf(f) !== -1);
+        card.classList.toggle('feature', f === 'all' && card.querySelector('.feature-body') !== null);
+      });
+      balance();
+    });
+  });
+  // Keep the grid even: if an odd number of regular cards is showing, let the last one span both columns.
+  function balance() {
+    var vis = Array.prototype.filter.call(cards, function (c) { c.classList.remove('span'); return !c.hidden && !c.classList.contains('feature'); });
+    if (vis.length % 2 === 1) vis[vis.length - 1].classList.add('span');
+  }
+  balance();
+
+  var toast = document.getElementById('toast'), t;
+  function show(msg) { toast.textContent = msg; toast.hidden = false; clearTimeout(t); t = setTimeout(function () { toast.hidden = true; }, 1800); }
+  document.getElementById('copy').addEventListener('click', function () {
+    var text = document.getElementById('email').textContent.trim();
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      show('Email selected. Press Ctrl+C or ⌘C to copy.');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { show('Email copied'); }, fallback);
+    } catch (e) { fallback(); }
+  });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
